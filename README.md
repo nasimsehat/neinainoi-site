@@ -25,4 +25,5 @@ To export the list at launch: in the D1 console run
 
 `holding/media/series-001.*` are web versions of
 `assets/source/images & videos/black_n_white.mov` at its native 588 x 1046: audio removed,
-VP9 WebM and H.264 MP4, poster frame at 5 s.
+H.264 MP4 first (hardware decoded on every phone), VP9 WebM as fallback. The poster is
+frame 0, so nothing jumps when playback starts.

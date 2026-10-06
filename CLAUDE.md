@@ -209,7 +209,7 @@ never names a city or country as origin.
 - Email signup (DECIDED): no third party visible anywhere. The form posts to our own
   `/api/subscribe` (Cloudflare Pages Function, `lib/signup.js`). The list is stored in
   Cloudflare D1, double opt-in. Mail goes from hello@neinainoi.com through Resend, unbranded.
-  Both emails point to instagram @neinainoi. The list moves to Shopify at launch.
+  Both emails point to instagram @nei.nai.noi. The list moves to Shopify at launch.
 - Hosting: Cloudflare Pages. The private preview sits behind Cloudflare Access.
 - Screen size of w: 24 px at phone width, growing with the viewport (`--w` in CSS).
 - The manufacturing process is not decided. Do not write copy about technology, knitting
@@ -239,3 +239,8 @@ Place under `/assets/source/` and do not edit:
 - Exports of the approved identity boards: logo, hangtag front and back, hard paper card,
   packaging card, connector caps A to F.
 - Photoshoots, backstage footage, and the airport X-ray image of a suitcase full of parts.
+
+## 9. Accounts and handles
+
+- Instagram: @nei.nai.noi (https://www.instagram.com/nei.nai.noi/). Not @neinainoi.
+- Email: hello@neinainoi.com, forwarded by Porkbun.

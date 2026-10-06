@@ -19,7 +19,7 @@ const post = (email, extra = {}, json = true) => { const fd = new FormData(); fd
 let r = await subscribe(post(' Ana@Example.com '), env);
 assert.equal(r.status, 200); assert.equal(rows.get('ana@example.com').status, 'pending');
 assert.equal(sent.length, 1); assert.equal(sent[0].subject, 'confirm'); assert.equal(sent[0].from, 'neinainoi <hello@neinainoi.com>');
-assert.match(sent[0].text, /instagram @neinainoi/); assert.match(sent[0].html, /instagram\.com\/neinainoi/);
+assert.match(sent[0].text, /instagram @nei\.nai\.noi\n/); assert.ok(sent.every(m => m.from === 'neinainoi <hello@neinainoi.com>')); assert.match(sent[0].html, /instagram\.com\/nei\.nai\.noi/);
 const t = rows.get('ana@example.com').token; assert.ok(sent[0].text.includes(`/api/confirm?t=${t}`));
 
 r = await subscribe(post('ana@example.com'), env);                 // repeat before confirming: same token, mail resent
@@ -28,7 +28,7 @@ assert.equal(sent.length, 2); assert.equal(rows.size, 1); assert.equal(rows.get(
 r = await confirm(new Request(`https://neinainoi.com/api/confirm?t=${t}`), env);
 assert.equal(r.status, 303); assert.equal(r.headers.get('location'), 'https://neinainoi.com/confirmed.html');
 assert.equal(rows.get('ana@example.com').status, 'confirmed');
-assert.equal(sent[2].subject, 'you are on the list'); assert.match(sent[2].text, /instagram @neinainoi/);
+assert.equal(sent[2].subject, 'you are on the list'); assert.match(sent[2].text, /instagram @nei.nai.noi/);
 assert.equal(sent[2].headers['List-Unsubscribe'], `<https://neinainoi.com/api/unsubscribe?t=${t}>`);
 
 await confirm(new Request(`https://neinainoi.com/api/confirm?t=${t}`), env);   // clicking twice sends no second welcome
