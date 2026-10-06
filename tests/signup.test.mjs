@@ -46,3 +46,6 @@ r = await unsubscribe(new Request(`https://neinainoi.com/api/unsubscribe?t=${t}`
 assert.ok(!rows.has('ana@example.com')); assert.equal(r.headers.get('location'), 'https://neinainoi.com/unsubscribed.html');
 for (const m of sent) assert.ok(!/[–—]/.test(m.text + m.html) && !/buttondown/i.test(m.html));
 console.log('all signup checks passed,', sent.length, 'mails captured');
+// mail html: no forced colours, no paragraphs (dark mode and spacing)
+for (const m of sent) { assert.ok(!/color:#|background/i.test(m.html)); assert.ok(!/<p[ >]/.test(m.html)); }
+console.log('mail format checks passed');
