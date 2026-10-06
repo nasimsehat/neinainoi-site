@@ -1,0 +1,6 @@
+{
+  "name": "neinainoi-site",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node tests/signup.test.mjs" }
+}

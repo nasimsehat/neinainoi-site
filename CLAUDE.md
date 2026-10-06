@@ -206,8 +206,10 @@ never names a city or country as origin.
 - Prices shown to consumers include VAT and import duty (EU and UK law require tax-inclusive
   display). Shipping is paid by the customer and added at checkout. Goods ship from China.
   Rates are placeholders until a customs broker confirms the duty code.
-- Email signup: Buttondown, account hello@neinainoi.com, double opt-in. The list moves to
-  Shopify at launch.
+- Email signup (DECIDED): no third party visible anywhere. The form posts to our own
+  `/api/subscribe` (Cloudflare Pages Function, `lib/signup.js`). The list is stored in
+  Cloudflare D1, double opt-in. Mail goes from hello@neinainoi.com through Resend, unbranded.
+  Both emails point to instagram @neinainoi. The list moves to Shopify at launch.
 - Hosting: Cloudflare Pages. The private preview sits behind Cloudflare Access.
 - Screen size of w: 24 px at phone width, growing with the viewport (`--w` in CSS).
 - The manufacturing process is not decided. Do not write copy about technology, knitting

@@ -4,17 +4,25 @@ The brief is CLAUDE.md. Read it first.
 
 ## holding page
 
-`holding/` is plain static HTML. No build step.
+`holding/` is plain static HTML. `functions/api/` holds the signup endpoints, `lib/signup.js`
+the logic, `db/schema.sql` the list table. `npm test` runs the signup tests.
 
-Local preview: `cd holding && python3 -m http.server 8000`, then open http://localhost:8000.
+Local preview of the page only: `cd holding && python3 -m http.server 8000`.
 
-Deploy on Cloudflare Pages: connect this repo, framework preset "None", build command empty,
-output directory `holding`. Add the custom domain neinainoi.com.
+### Cloudflare Pages
 
-Before it goes live, replace `BUTTONDOWN_USERNAME` in `holding/index.html` with the
-Buttondown username.
+- Connect this repo. Framework preset: None. Build command: empty. Build output directory:
+  `holding`. Root directory: empty (the repo root, so `functions/` is found).
+- D1: create a database `neinainoi-signup`, run `db/schema.sql` in its console, and bind it
+  to the Pages project as `DB`.
+- Secret: `RESEND_API_KEY`, from a Resend account with neinainoi.com verified.
+- Custom domain: neinainoi.com.
+
+To export the list at launch: in the D1 console run
+`SELECT email, confirmed_at FROM subscribers WHERE status = 'confirmed';` and download CSV.
 
 ## film
 
-`holding/media/series-001-*` are web versions of `assets/source/images & videos/IMG_0783.mov`:
-tone mapped from iPhone HDR to SDR, audio removed, VP9 WebM and H.264 MP4 at 720 and 1080.
+`holding/media/series-001.*` are web versions of
+`assets/source/images & videos/black_n_white.mov` at its native 588 x 1046: audio removed,
+VP9 WebM and H.264 MP4, poster frame at 5 s.

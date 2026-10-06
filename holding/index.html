@@ -18,35 +18,36 @@
   <h1 class="mark">nei<span class="nai">nai</span>noi</h1>
 
   <video class="film" autoplay muted loop playsinline preload="auto"
-    poster="/media/series-001-poster.jpg" width="1080" height="1920"
-    aria-label="two people stand at a railing on a wooden walkway, each wearing a neinainoi look, while others walk past.">
-    <source src="/media/series-001-720.webm" type="video/webm" media="(max-width: 899px)">
-    <source src="/media/series-001-720.mp4" type="video/mp4" media="(max-width: 899px)">
-    <source src="/media/series-001-1080.webm" type="video/webm">
-    <source src="/media/series-001-1080.mp4" type="video/mp4">
+    poster="/media/series-001-poster.jpg" width="588" height="1046"
+    aria-label="black and white film. two people stand at a railing, each wearing a neinainoi look, while others walk past.">
+    <source src="/media/series-001.webm" type="video/webm">
+    <source src="/media/series-001.mp4" type="video/mp4">
   </video>
 
   <div class="end">
     <p class="line">wearable architecture you build yourself.</p>
     <p class="soon">coming soon.</p>
 
-    <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/BUTTONDOWN_USERNAME"
-      method="post" target="signup-sink">
+    <form class="signup" action="/api/subscribe" method="post">
       <label class="hide" for="email">email</label>
       <input id="email" type="email" name="email" placeholder="email" autocomplete="email" required>
-      <input type="hidden" name="embed" value="1">
+      <input class="hide" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit">sign up</button>
     </form>
     <p class="done" role="status" hidden>thank you. check your inbox.</p>
     <a class="privacy" href="/privacy.html">privacy</a>
   </div>
 </main>
-<iframe name="signup-sink" title="signup" hidden></iframe>
 <script>
-  // Without this script the form posts normally and Buttondown shows its own page.
+  // Without this script the form posts normally and the visitor lands on /thanks.html.
   const f = document.querySelector('.signup');
-  f.addEventListener('submit', () => {
-    setTimeout(() => { f.hidden = true; document.querySelector('.done').hidden = false; }, 300);
+  const done = document.querySelector('.done');
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const res = await fetch(f.action, { method: 'POST', body: new FormData(f), headers: { accept: 'application/json' } }).catch(() => null);
+    if (res && res.ok) { f.hidden = true; done.textContent = 'thank you. check your inbox.'; }
+    else { done.textContent = 'that did not work. try again.'; }
+    done.hidden = false;
   });
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const v = document.querySelector('.film'); v.removeAttribute('autoplay'); v.pause(); v.controls = true;
